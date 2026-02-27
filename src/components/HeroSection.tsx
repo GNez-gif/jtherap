@@ -34,6 +34,9 @@ const HeroSection = () => {
           <p className="mt-2 text-sm sm:text-base text-primary-foreground/75 font-body italic text-shadow-hero">
             Personalized care designed for drivers who never stop moving
           </p>
+          <p className="mt-3 text-xs sm:text-sm text-primary-foreground/70 font-heading font-bold tracking-wide text-shadow-hero">
+            Serving the States of Wyoming, Utah, Illinois, New Mexico, Arizona, Texas, Florida…and growing
+          </p>
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
               size="lg"
