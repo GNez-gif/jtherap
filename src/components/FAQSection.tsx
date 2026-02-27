@@ -7,24 +7,24 @@ import {
 
 const faqs = [
   {
-    q: "What is Type 2 Diabetes Mellitus?",
-    a: "Type 2 Diabetes Mellitus is a chronic condition where your body doesn't use insulin properly, leading to elevated blood sugar levels. It can be managed through lifestyle changes, medication, and regular monitoring.",
+    q: "Can I manage Type 2 Diabetes and keep my CDL?",
+    a: "Absolutely. With proper management and documentation, most drivers with Type 2 Diabetes can maintain their CDL. We help you stay within FMCSA guidelines and prepare for DOT physicals.",
   },
   {
-    q: "How often should I monitor my blood sugar?",
-    a: "The frequency depends on your treatment plan. Generally, we recommend monitoring at least once daily, but your healthcare provider will create a personalized monitoring schedule based on your needs.",
+    q: "How do telehealth appointments work on the road?",
+    a: "We schedule around your routes. All you need is a phone or tablet with signal. Video or phone — your choice. We can even work around time zone changes.",
   },
   {
-    q: "Can Type 2 Diabetes be reversed?",
-    a: "While Type 2 Diabetes is a chronic condition, significant lifestyle changes including weight loss, healthy eating, and regular exercise can lead to remission in some cases, especially when caught early.",
+    q: "What can I eat healthy at truck stops?",
+    a: "More than you'd think. We provide practical meal guides for major truck stop chains, plus simple recipes you can make with a microwave, mini-fridge, or slow cooker in your cab.",
   },
   {
-    q: "What services do you offer for weight management?",
-    a: "We offer comprehensive weight management programs including nutritional counseling, personalized meal planning, exercise guidance, and ongoing support to help you achieve and maintain a healthy weight.",
+    q: "How often do I need to check my blood sugar?",
+    a: "It depends on your treatment plan. We'll set up a monitoring schedule that's realistic for life behind the wheel — including continuous glucose monitors that reduce finger sticks.",
   },
   {
-    q: "Do you accept insurance?",
-    a: "We work with many insurance providers. Please contact our office to verify your coverage and discuss payment options available to you.",
+    q: "Do you help with DOT physical preparation?",
+    a: "Yes. We ensure your diabetes is well-documented and controlled, and we provide the medical records examiners need to clear you confidently.",
   },
 ];
 

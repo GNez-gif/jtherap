@@ -2,13 +2,13 @@ import { Activity, Heart, Eye, Zap, Droplets, Brain, Shield } from "lucide-react
 import { Button } from "@/components/ui/button";
 
 const challenges = [
-  { icon: Activity, title: "Uncontrolled Blood Sugar", desc: "Struggling to keep your blood glucose levels in check?" },
-  { icon: Heart, title: "Cardiovascular Risks", desc: "Worried about heart-related complications from diabetes?" },
-  { icon: Eye, title: "Vision Changes", desc: "Experiencing blurry vision or eye health concerns?" },
-  { icon: Zap, title: "Low Energy Levels", desc: "Feeling fatigued and lacking energy throughout the day?" },
-  { icon: Droplets, title: "Kidney Concerns", desc: "Concerned about diabetes impact on kidney function?" },
-  { icon: Brain, title: "Neuropathy", desc: "Dealing with numbness, tingling, or nerve pain?" },
-  { icon: Shield, title: "Compromised Immunity", desc: "Frequently getting sick or slow wound healing?" },
+  { icon: Activity, title: "Blood Sugar Spikes on the Road", desc: "Fast food and gas station meals making it impossible to keep glucose stable?" },
+  { icon: Heart, title: "Cardiovascular Strain", desc: "Long sedentary hours increasing your risk for heart problems?" },
+  { icon: Eye, title: "Vision Changes", desc: "Blurry vision threatening your CDL medical certification?" },
+  { icon: Zap, title: "Driver Fatigue", desc: "Crashing energy levels making long hauls dangerous?" },
+  { icon: Droplets, title: "DOT Physical Concerns", desc: "Worried about passing your next DOT medical exam?" },
+  { icon: Brain, title: "Neuropathy & Numbness", desc: "Tingling in your hands and feet affecting your grip and pedal control?" },
+  { icon: Shield, title: "Slow Recovery", desc: "Cuts and injuries healing slowly while you're miles from home?" },
 ];
 
 const ChallengesSection = () => {
@@ -17,7 +17,7 @@ const ChallengesSection = () => {
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-heading font-bold uppercase">
-            Are You Facing These Health Challenges?
+            Sound Familiar, Driver?
           </h2>
         </div>
 
@@ -39,8 +39,8 @@ const ChallengesSection = () => {
         </div>
 
         <p className="text-center mt-10 text-primary-foreground/80 max-w-2xl mx-auto text-sm">
-          If you're experiencing any of these challenges, you're not alone. Our specialized team can help you 
-          manage and overcome these health concerns with personalized care plans.
+          The trucking lifestyle doesn't have to wreck your health. Our team understands life on the road 
+          and builds care plans that work from the cab, not just the clinic.
         </p>
 
         <div className="text-center mt-6">
