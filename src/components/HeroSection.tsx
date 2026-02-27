@@ -30,7 +30,7 @@ const HeroSection = () => {
             <Button
               size="lg"
               variant="outline"
-              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 font-heading font-semibold px-6 sm:px-8 w-full sm:w-auto"
+              className="border-primary-foreground text-primary-foreground bg-primary-foreground/10 hover:bg-primary-foreground/20 font-heading font-semibold px-6 sm:px-8 w-full sm:w-auto"
             >
               Learn More
             </Button>
