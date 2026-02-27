@@ -7,9 +7,9 @@ const ContactSection = () => {
     <section id="contact" className="py-16 gradient-section text-primary-foreground">
       <div className="container">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold">Contact us!</h2>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold">Get in Touch, Driver</h2>
           <p className="mt-3 text-primary-foreground/80 max-w-xl mx-auto text-sm">
-            Ready to take control of your health? Reach out to us and we'll get back to you as soon as possible.
+            Ready to take the wheel on your health? Drop us a message and we'll reach out — on your schedule, not ours.
           </p>
         </div>
 
@@ -35,7 +35,7 @@ const ContactSection = () => {
             className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
           />
           <Textarea
-            placeholder="Your Message"
+            placeholder="Tell us about your situation — routes, schedule, health concerns..."
             rows={4}
             className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
           />

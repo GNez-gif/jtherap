@@ -16,7 +16,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-primary-foreground/70 text-sm">
-              Dedicated to transforming lives through personalized diabetes management and weight wellness care.
+              Keeping America's drivers healthy, certified, and on the road with personalized diabetes and weight wellness care.
             </p>
           </div>
 

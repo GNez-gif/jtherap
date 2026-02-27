@@ -10,7 +10,7 @@ const AboutSection = () => {
             About Us
           </p>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2">
-            Your Type 2 Diabetes Care for Better Wellness
+            Healthcare Built for Life on the Road
           </h2>
         </div>
 
@@ -18,7 +18,7 @@ const AboutSection = () => {
           <div className="rounded-lg overflow-hidden shadow-lg">
             <img
               src={consultationImg}
-              alt="Medical consultation"
+              alt="Driver health consultation"
               className="w-full h-64 md:h-80 object-cover"
             />
           </div>
@@ -33,13 +33,13 @@ const AboutSection = () => {
               </div>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              Type 2 Diabetes Mellitus is a chronic metabolic condition that affects how your body processes blood sugar (glucose). 
-              At Junek Therapeutics, we specialize in comprehensive diabetes management and weight wellness programs 
-              tailored to your unique needs.
+              Long hours behind the wheel, irregular meals, and limited access to healthcare make truck drivers 
+              and road warriors especially vulnerable to Type 2 Diabetes. At Junek Therapeutics, we specialize 
+              in care plans built around your schedule — not the other way around.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Our team of experienced healthcare professionals is dedicated to helping you achieve optimal health 
-              through personalized treatment plans, nutrition guidance, and ongoing support.
+              Whether you're hauling cross-country or running regional routes, our telehealth-first approach 
+              means expert diabetes management and weight wellness support rides with you.
             </p>
             <Button className="mt-6 bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-semibold">
               Learn More About Us

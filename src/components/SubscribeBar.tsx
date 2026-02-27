@@ -6,10 +6,10 @@ const SubscribeBar = () => {
     <section className="bg-secondary py-8">
       <div className="container text-center">
         <h2 className="text-2xl font-heading font-bold text-secondary-foreground">
-          Subscribe & Be Updated
+          Stay Road-Ready
         </h2>
         <p className="mt-2 text-secondary-foreground/80 text-sm max-w-xl mx-auto">
-          Stay informed about the latest in diabetes management, weight wellness tips, and health news.
+          Get driver-friendly health tips, truck stop meal guides, and diabetes management updates straight to your inbox.
         </p>
         <form className="mt-4 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
           <Input

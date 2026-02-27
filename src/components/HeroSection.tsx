@@ -12,13 +12,13 @@ const HeroSection = () => {
       <div className="relative z-10 container py-20">
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground leading-tight text-shadow-hero">
-            Transforming Lives, Managing Your Health
+            Health on the Road, Wellness Behind the Wheel
           </h1>
           <p className="mt-4 text-lg md:text-xl text-primary-foreground/90 font-body text-shadow-hero">
-            Type 2 Diabetes Control and Weight Wellness
+            Diabetes Management & Weight Wellness for Truck Drivers
           </p>
           <p className="mt-2 text-primary-foreground/80 text-shadow-hero">
-            Dedicated to empowering you with personalized care
+            Personalized care designed for drivers who never stop moving
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Button

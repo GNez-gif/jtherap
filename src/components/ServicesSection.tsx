@@ -6,23 +6,23 @@ import weightImg from "@/assets/services-weight.jpg";
 
 const services = [
   {
-    title: "Initial Consultation",
-    desc: "Comprehensive health assessment to understand your unique needs, medical history, and goals for diabetes management.",
+    title: "Driver Health Assessment",
+    desc: "Comprehensive evaluation tailored to the trucking lifestyle — covering blood sugar, blood pressure, BMI, and DOT readiness so you stay certified and healthy.",
     image: consultationImg,
   },
   {
-    title: "Follow-up Care",
-    desc: "Regular monitoring appointments to track your progress, adjust treatment plans, and ensure optimal health outcomes.",
+    title: "Telehealth Follow-ups",
+    desc: "Video and phone appointments that work around your route schedule. Get expert care from your cab, rest stop, or anywhere you have signal.",
     image: monitoringImg,
   },
   {
-    title: "Monitor HbA1c Type 2 Diabetes Management",
-    desc: "Specialized monitoring and management programs designed to keep your HbA1c levels within target range.",
+    title: "HbA1c & Diabetes Monitoring",
+    desc: "Ongoing tracking and management to keep your HbA1c in the safe zone — critical for maintaining your CDL medical certification.",
     image: nutritionImg,
   },
   {
-    title: "Weight Loss and Nutritional Healthy Lifestyle",
-    desc: "Personalized nutrition counseling and weight management programs to support your overall wellness journey.",
+    title: "Road-Ready Nutrition & Weight Loss",
+    desc: "Practical meal plans built for truck stops and limited kitchens. No gym required — exercise routines you can do at rest areas and in your cab.",
     image: weightImg,
   },
 ];
@@ -36,8 +36,8 @@ const ServicesSection = () => {
             Our Services
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            We offer a comprehensive range of services designed to help you manage Type 2 Diabetes 
-            and achieve your weight wellness goals through evidence-based approaches.
+            Healthcare designed for drivers, not desk jockeys. Every service fits your schedule, 
+            your lifestyle, and your goals — keeping you on the road and in control.
           </p>
         </div>
 

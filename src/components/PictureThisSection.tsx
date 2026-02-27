@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 
 const benefits = [
-  "Stable blood sugar levels that stay within your target range",
-  "More energy to enjoy your daily activities and hobbies",
-  "A healthy weight that makes you feel confident",
-  "Reduced risk of diabetes-related complications",
-  "A personalized plan that fits your lifestyle",
+  "Stable blood sugar — even with truck stop meals and irregular schedules",
+  "Sustained energy for long hauls without the afternoon crash",
+  "A healthy weight that helps you pass your DOT physical with confidence",
+  "Reduced risk of losing your CDL due to diabetes complications",
+  "A road-ready plan that fits your routes, not the other way around",
 ];
 
 const PictureThisSection = () => {
@@ -18,9 +18,9 @@ const PictureThisSection = () => {
             Picture this!
           </h2>
           <p className="mt-6 text-primary-foreground/85 leading-relaxed">
-            Imagine waking up every morning feeling energized, knowing your health is on the right track. 
-            With our comprehensive approach to diabetes management and weight wellness, 
-            this can be your reality.
+            Imagine rolling out for your next haul feeling sharp, energized, and in control of your health. 
+            No more worrying about your next DOT physical or crashing mid-route. 
+            With our trucker-focused care, this can be your new normal.
           </p>
 
           <div className="mt-8 space-y-4 text-left max-w-lg mx-auto">
