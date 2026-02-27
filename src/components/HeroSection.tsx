@@ -1,10 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
-  const navigate = useNavigate();
   return (
     <section id="home" className="relative min-h-[480px] sm:min-h-[560px] md:min-h-[640px] flex items-center overflow-hidden">
       <div
@@ -42,7 +40,6 @@ const HeroSection = () => {
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
               size="lg"
-              onClick={() => navigate("/booking")}
               className="bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold px-8 sm:px-10 w-full sm:w-auto rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 text-base"
             >
               Book Appointment

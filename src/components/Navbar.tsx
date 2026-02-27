@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+
   const navLinks = ["Home", "About", "Services", "FAQ", "Contact"];
 
   return (
@@ -43,7 +42,7 @@ const Navbar = () => {
                 {link}
               </a>
             ))}
-            <Button onClick={() => navigate("/booking")} className="bg-secondary text-secondary-foreground hover:bg-teal-dark text-sm font-heading font-bold rounded-full px-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+            <Button className="bg-secondary text-secondary-foreground hover:bg-teal-dark text-sm font-heading font-bold rounded-full px-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
               Book Now
             </Button>
           </div>
@@ -70,7 +69,7 @@ const Navbar = () => {
                 {link}
               </a>
             ))}
-            <Button onClick={() => navigate("/booking")} className="mt-4 w-full bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full">
+            <Button className="mt-4 w-full bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full">
               Book Now
             </Button>
           </div>
