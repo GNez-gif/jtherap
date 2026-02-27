@@ -37,24 +37,24 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-extrabold mb-5 text-lg">Contact Info</h4>
             <div className="space-y-4 text-sm">
-              <p className="flex items-center gap-3 text-primary-foreground/70">
+              <div className="flex items-center gap-3 text-primary-foreground/70">
                 <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center">
                   <Phone className="w-4 h-4 text-secondary" />
                 </div>
                 <span className="font-heading">+1 (555) 123-4567</span>
-              </p>
-              <p className="flex items-center gap-3 text-primary-foreground/70">
+              </div>
+              <div className="flex items-center gap-3 text-primary-foreground/70">
                 <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center">
                   <Mail className="w-4 h-4 text-secondary" />
                 </div>
                 <span className="font-heading">info@junektherapeutics.com</span>
-              </p>
-              <p className="flex items-center gap-3 text-primary-foreground/70">
+              </div>
+              <div className="flex items-center gap-3 text-primary-foreground/70">
                 <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center">
                   <MapPin className="w-4 h-4 text-secondary" />
                 </div>
                 <span className="font-heading">123 Health Street, Wellness City</span>
-              </p>
+              </div>
             </div>
           </div>
         </div>
