@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { HelpCircle } from "lucide-react";
 
 const faqs = [
   {
@@ -30,12 +31,16 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="py-10 sm:py-16 bg-background">
-      <div className="container px-4">
-        <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground">
+    <section id="faq" className="py-14 sm:py-20 bg-muted relative overflow-hidden">
+      <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-teal/5 blur-3xl" />
+
+      <div className="container px-4 relative">
+        <div className="text-center mb-10 sm:mb-14">
+          <p className="text-sm font-heading font-bold text-secondary uppercase tracking-widest">FAQ</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-extrabold text-foreground mt-3">
             Frequently Asked Questions
           </h2>
+          <div className="w-16 h-1 bg-secondary rounded-full mx-auto mt-4 opacity-60" />
         </div>
 
         <div className="max-w-2xl mx-auto">
@@ -44,12 +49,15 @@ const FAQSection = () => {
               <AccordionItem
                 key={idx}
                 value={`item-${idx}`}
-                className="border border-border rounded-lg px-4 bg-card"
+                className="border border-border rounded-2xl px-5 bg-card shadow-warm hover:shadow-card transition-shadow duration-300"
               >
-                <AccordionTrigger className="text-sm font-heading font-semibold text-foreground hover:text-secondary">
-                  {faq.q}
+                <AccordionTrigger className="text-sm font-heading font-bold text-foreground hover:text-secondary py-5 gap-3">
+                  <span className="flex items-center gap-3">
+                    <HelpCircle className="w-5 h-5 text-secondary shrink-0" />
+                    {faq.q}
+                  </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm">
+                <AccordionContent className="text-muted-foreground text-sm font-body leading-relaxed pb-5">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>

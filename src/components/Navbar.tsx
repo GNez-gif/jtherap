@@ -11,46 +11,46 @@ const Navbar = () => {
   return (
     <>
       {/* Top bar */}
-      <div className="bg-primary text-primary-foreground text-xs sm:text-sm py-1.5 sm:py-2">
+      <div className="bg-primary text-primary-foreground text-xs sm:text-sm py-2">
         <div className="container flex justify-between items-center px-4">
-          <div className="flex items-center gap-2 sm:gap-4">
-            <span className="flex items-center gap-1">
-              <Phone className="w-3 h-3" /> +1 (555) 123-4567
+          <div className="flex items-center gap-3 sm:gap-5">
+            <span className="flex items-center gap-1.5">
+              <Phone className="w-3 h-3 text-teal-light" /> +1 (555) 123-4567
             </span>
-            <span className="hidden sm:flex items-center gap-1">
-              <Mail className="w-3 h-3" /> info@junektherapeutics.com
+            <span className="hidden sm:flex items-center gap-1.5">
+              <Mail className="w-3 h-3 text-teal-light" /> info@junektherapeutics.com
             </span>
           </div>
-          <span className="hidden md:block">Mon - Fri: 9:00 AM - 5:00 PM</span>
+          <span className="hidden md:block font-heading text-primary-foreground/70">Mon - Fri: 9:00 AM - 5:00 PM</span>
         </div>
       </div>
 
       {/* Main nav */}
-      <nav className="bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-border shadow-sm">
-        <div className="container flex justify-between items-center py-2 sm:py-3 px-4">
+      <nav className="bg-background/98 backdrop-blur-md sticky top-0 z-50 border-b border-border shadow-warm">
+        <div className="container flex justify-between items-center py-3 sm:py-4 px-4">
           <a href="#" className="flex items-center">
             <img src={logo} alt="Junek Therapeutics" className="h-10 sm:h-14 drop-shadow-md" />
           </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase()}`}
-                className="text-sm font-medium text-foreground hover:text-secondary transition-colors"
+                className="text-sm font-heading font-semibold text-foreground/80 hover:text-secondary transition-colors duration-200 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:rounded-full after:transition-all after:duration-300 hover:after:w-full"
               >
                 {link}
               </a>
             ))}
-            <Button className="bg-secondary text-secondary-foreground hover:bg-teal-dark text-sm">
+            <Button className="bg-secondary text-secondary-foreground hover:bg-teal-dark text-sm font-heading font-bold rounded-full px-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
               Book Now
             </Button>
           </div>
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden text-foreground p-1 rounded-lg hover:bg-muted transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -59,18 +59,18 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden bg-background border-t border-border px-4 pb-4">
+          <div className="md:hidden bg-background border-t border-border px-4 pb-5 animate-slide-up">
             {navLinks.map((link) => (
               <a
                 key={link}
                 href={`#${link.toLowerCase()}`}
-                className="block py-2 text-sm font-medium text-foreground hover:text-secondary"
+                className="block py-3 text-sm font-heading font-semibold text-foreground hover:text-secondary border-b border-border/50 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {link}
               </a>
             ))}
-            <Button className="mt-2 w-full bg-secondary text-secondary-foreground hover:bg-teal-dark">
+            <Button className="mt-4 w-full bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full">
               Book Now
             </Button>
           </div>
