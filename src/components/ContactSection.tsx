@@ -21,7 +21,7 @@ const ContactSection = () => {
           {/* Quick contact cards */}
           <div className="md:col-span-2 space-y-4">
             {[
-              { icon: Phone, label: "Call Us", value: "+1 (555) 123-4567" },
+              { icon: Phone, label: "Call Us", value: "+1 (312) 544-9897" },
               { icon: Mail, label: "Email", value: "info@junektherapeutics.com" },
               { icon: Clock, label: "Hours", value: "Mon-Fri: 9AM - 5PM" },
             ].map((item) => (
