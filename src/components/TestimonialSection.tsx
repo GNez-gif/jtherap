@@ -1,4 +1,4 @@
-import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -49,61 +49,79 @@ const TestimonialSection = () => {
   const t = testimonials[current];
 
   return (
-    <section className="py-10 sm:py-16 bg-muted">
-      <div className="container px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground">
+    <section className="py-14 sm:py-20 bg-background relative overflow-hidden">
+      {/* Warm accent blob */}
+      <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-warm-peach blur-3xl opacity-40" />
+
+      <div className="container px-4 relative">
+        <div className="text-center mb-10">
+          <p className="text-sm font-heading font-bold text-secondary uppercase tracking-widest">Testimonials</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-extrabold text-foreground mt-3">
             Drivers Who Took Control
           </h2>
-          <p className="mt-2 text-muted-foreground text-sm max-w-xl mx-auto">
+          <p className="mt-3 text-muted-foreground font-body max-w-xl mx-auto">
             Real stories from real drivers who transformed their health without leaving the road.
           </p>
+          <div className="w-16 h-1 bg-secondary rounded-full mx-auto mt-4 opacity-60" />
         </div>
 
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="w-20 h-20 rounded-full bg-secondary mx-auto flex items-center justify-center mb-6">
-            <span className="text-secondary-foreground font-heading font-bold text-2xl">
-              {t.initials}
-            </span>
-          </div>
-          <h3 className="text-xl font-heading font-bold text-foreground">{t.name}</h3>
-          <p className="text-sm text-muted-foreground mt-1">{t.role}</p>
-          <Quote className="w-8 h-8 text-secondary mx-auto mt-6" />
-          <blockquote className="mt-4 text-foreground/80 italic leading-relaxed max-w-xl mx-auto text-sm sm:text-base min-h-[120px]">
-            "{t.quote}"
-          </blockquote>
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-card rounded-2xl shadow-card p-8 sm:p-10 border border-border text-center">
+            {/* Avatar */}
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-teal-light mx-auto flex items-center justify-center mb-4 shadow-lg">
+              <span className="text-secondary-foreground font-heading font-extrabold text-2xl">
+                {t.initials}
+              </span>
+            </div>
 
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={prev}
-              className="rounded-full border-border"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </Button>
-            <div className="flex gap-2">
-              {testimonials.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrent(idx)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    idx === current ? "bg-secondary" : "bg-border"
-                  }`}
-                  aria-label={`Go to testimonial ${idx + 1}`}
-                />
+            {/* Stars */}
+            <div className="flex justify-center gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 text-warm-amber fill-warm-amber" />
               ))}
             </div>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={next}
-              className="rounded-full border-border"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </Button>
+
+            <h3 className="text-lg font-heading font-bold text-foreground">{t.name}</h3>
+            <p className="text-sm text-muted-foreground mt-1 font-heading">{t.role}</p>
+
+            <Quote className="w-8 h-8 text-secondary/40 mx-auto mt-6" />
+            <blockquote className="mt-3 text-foreground/75 italic leading-relaxed max-w-xl mx-auto text-sm sm:text-base font-body min-h-[120px]">
+              "{t.quote}"
+            </blockquote>
+
+            {/* Navigation */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={prev}
+                className="rounded-full border-border hover:bg-muted hover:border-secondary transition-all"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <div className="flex gap-2">
+                {testimonials.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrent(idx)}
+                    className={`rounded-full transition-all duration-300 ${
+                      idx === current ? "bg-secondary w-6 h-2.5" : "bg-border w-2.5 h-2.5 hover:bg-secondary/50"
+                    }`}
+                    aria-label={`Go to testimonial ${idx + 1}`}
+                  />
+                ))}
+              </div>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={next}
+                className="rounded-full border-border hover:bg-muted hover:border-secondary transition-all"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
