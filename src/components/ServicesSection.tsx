@@ -29,10 +29,10 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-16 bg-background">
-      <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+    <section id="services" className="py-10 sm:py-16 bg-background">
+      <div className="container px-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground">
             Our Services
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
@@ -41,7 +41,7 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        <div className="space-y-8 max-w-4xl mx-auto">
+        <div className="space-y-6 sm:space-y-8 max-w-4xl mx-auto">
           {services.map((service, idx) => (
             <div
               key={service.title}

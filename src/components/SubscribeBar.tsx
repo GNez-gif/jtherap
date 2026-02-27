@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 
 const SubscribeBar = () => {
   return (
-    <section className="bg-secondary py-8">
-      <div className="container text-center">
-        <h2 className="text-2xl font-heading font-bold text-secondary-foreground">
+    <section className="bg-secondary py-6 sm:py-8">
+      <div className="container text-center px-4">
+        <h2 className="text-xl sm:text-2xl font-heading font-bold text-secondary-foreground">
           Stay Road-Ready
         </h2>
         <p className="mt-2 text-secondary-foreground/80 text-sm max-w-xl mx-auto">

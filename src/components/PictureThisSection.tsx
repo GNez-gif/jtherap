@@ -11,10 +11,10 @@ const benefits = [
 
 const PictureThisSection = () => {
   return (
-    <section className="py-16 gradient-section text-primary-foreground">
-      <div className="container">
+    <section className="py-10 sm:py-16 gradient-section text-primary-foreground">
+      <div className="container px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold italic">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold italic">
             Picture this!
           </h2>
           <p className="mt-6 text-primary-foreground/85 leading-relaxed">

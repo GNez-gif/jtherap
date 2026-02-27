@@ -30,10 +30,10 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="py-16 bg-background">
-      <div className="container">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+    <section id="faq" className="py-10 sm:py-16 bg-background">
+      <div className="container px-4">
+        <div className="text-center mb-8 sm:mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground">
             Frequently Asked Questions
           </h2>
         </div>
