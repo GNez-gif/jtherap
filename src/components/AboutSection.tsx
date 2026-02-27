@@ -25,7 +25,7 @@ const AboutSection = () => {
           </div>
           <div>
             <div className="mb-4">
-              <img src={logo} alt="Junek Therapeutics" className="h-12" />
+              <img src={logo} alt="Junek Therapeutics" className="h-16 drop-shadow-md" />
             </div>
             <p className="text-muted-foreground leading-relaxed">
               Long hours behind the wheel, irregular meals, and limited access to healthcare make truck drivers 

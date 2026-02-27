@@ -29,7 +29,7 @@ const Navbar = () => {
       <nav className="bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-border shadow-sm">
         <div className="container flex justify-between items-center py-3">
           <a href="#" className="flex items-center">
-            <img src={logo} alt="Junek Therapeutics" className="h-10" />
+            <img src={logo} alt="Junek Therapeutics" className="h-14 drop-shadow-md" />
           </a>
 
           {/* Desktop links */}

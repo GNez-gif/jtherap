@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <div className="mb-4">
-              <img src={logo} alt="Junek Therapeutics" className="h-10 brightness-0 invert" />
+              <img src={logo} alt="Junek Therapeutics" className="h-14 brightness-0 invert drop-shadow-lg" />
             </div>
             <p className="text-primary-foreground/70 text-sm">
               Keeping America's drivers healthy, certified, and on the road with personalized diabetes and weight wellness care.
