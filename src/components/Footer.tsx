@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -6,14 +7,8 @@ const Footer = () => {
       <div className="container">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
-                <span className="text-secondary-foreground font-heading font-bold text-lg">J</span>
-              </div>
-              <div>
-                <span className="font-heading font-bold text-lg">Junek</span>
-                <span className="block text-xs text-primary-foreground/70 -mt-1">Therapeutics</span>
-              </div>
+            <div className="mb-4">
+              <img src={logo} alt="Junek Therapeutics" className="h-10 brightness-0 invert" />
             </div>
             <p className="text-primary-foreground/70 text-sm">
               Keeping America's drivers healthy, certified, and on the road with personalized diabetes and weight wellness care.
