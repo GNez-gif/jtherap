@@ -13,15 +13,15 @@ const challenges = [
 
 const ChallengesSection = () => {
   return (
-    <section className="py-16 bg-primary text-primary-foreground">
-      <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold uppercase">
+    <section className="py-10 sm:py-16 bg-primary text-primary-foreground">
+      <div className="container px-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold uppercase">
             Sound Familiar, Driver?
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {challenges.map((item) => (
             <div
               key={item.title}

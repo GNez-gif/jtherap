@@ -4,13 +4,13 @@ import logo from "@/assets/logo.png";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-16 bg-background">
-      <div className="container">
+    <section id="about" className="py-10 sm:py-16 bg-background">
+      <div className="container px-4">
         <div className="text-center mb-8">
           <p className="text-sm font-heading font-semibold text-secondary uppercase tracking-wider">
             About Us
           </p>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mt-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-foreground mt-2">
             Healthcare Built for Life on the Road
           </h2>
         </div>

@@ -2,8 +2,8 @@ import { Quote } from "lucide-react";
 
 const TestimonialSection = () => {
   return (
-    <section className="py-16 bg-muted">
-      <div className="container">
+    <section className="py-10 sm:py-16 bg-muted">
+      <div className="container px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="w-20 h-20 rounded-full bg-secondary mx-auto flex items-center justify-center mb-6">
             <span className="text-secondary-foreground font-heading font-bold text-2xl">MR</span>

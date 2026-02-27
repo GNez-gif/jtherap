@@ -11,9 +11,9 @@ const Navbar = () => {
   return (
     <>
       {/* Top bar */}
-      <div className="bg-primary text-primary-foreground text-sm py-2">
-        <div className="container flex justify-between items-center">
-          <div className="flex items-center gap-4">
+      <div className="bg-primary text-primary-foreground text-xs sm:text-sm py-1.5 sm:py-2">
+        <div className="container flex justify-between items-center px-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <span className="flex items-center gap-1">
               <Phone className="w-3 h-3" /> +1 (555) 123-4567
             </span>
@@ -27,9 +27,9 @@ const Navbar = () => {
 
       {/* Main nav */}
       <nav className="bg-background/95 backdrop-blur-sm sticky top-0 z-50 border-b border-border shadow-sm">
-        <div className="container flex justify-between items-center py-3">
+        <div className="container flex justify-between items-center py-2 sm:py-3 px-4">
           <a href="#" className="flex items-center">
-            <img src={logo} alt="Junek Therapeutics" className="h-14 drop-shadow-md" />
+            <img src={logo} alt="Junek Therapeutics" className="h-10 sm:h-14 drop-shadow-md" />
           </a>
 
           {/* Desktop links */}
