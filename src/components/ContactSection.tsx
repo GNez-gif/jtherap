@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Send, Phone, Mail, Clock } from "lucide-react";
+import { Send, Phone, Mail } from "lucide-react";
 
 const ContactSection = () => {
   return (
@@ -23,7 +23,6 @@ const ContactSection = () => {
             {[
               { icon: Phone, label: "Call Us", value: "+1 (312) 544-9897" },
               { icon: Mail, label: "Email", value: "info@junektherapeutics.com" },
-              { icon: Clock, label: "Hours", value: "Mon-Fri: 9AM - 5PM" },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-4 bg-primary-foreground/8 rounded-2xl p-4 border border-primary-foreground/10">
                 <div className="w-10 h-10 rounded-xl bg-secondary/80 flex items-center justify-center shrink-0">
