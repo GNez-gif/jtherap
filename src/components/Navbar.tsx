@@ -15,13 +15,12 @@ const Navbar = () => {
         <div className="container flex justify-between items-center px-4">
           <div className="flex items-center gap-3 sm:gap-5">
             <span className="flex items-center gap-1.5">
-              <Phone className="w-3 h-3 text-teal-light" /> +1 (555) 123-4567
+              <Phone className="w-3 h-3 text-teal-light" /> +1 (312) 544-9897
             </span>
             <span className="hidden sm:flex items-center gap-1.5">
               <Mail className="w-3 h-3 text-teal-light" /> info@junektherapeutics.com
             </span>
           </div>
-          <span className="hidden md:block font-heading text-primary-foreground/70">Mon - Fri: 9:00 AM - 5:00 PM</span>
         </div>
       </div>
 
