@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import consultationImg from "@/assets/services-consultation.jpg";
+import logo from "@/assets/logo.png";
 
 const AboutSection = () => {
   return (
@@ -23,14 +24,8 @@ const AboutSection = () => {
             />
           </div>
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-                <span className="text-secondary-foreground font-heading font-bold text-xl">J</span>
-              </div>
-              <div>
-                <span className="font-heading font-bold text-lg text-foreground">Junek</span>
-                <span className="block text-xs text-muted-foreground -mt-1">Therapeutics</span>
-              </div>
+            <div className="mb-4">
+              <img src={logo} alt="Junek Therapeutics" className="h-12" />
             </div>
             <p className="text-muted-foreground leading-relaxed">
               Long hours behind the wheel, irregular meals, and limited access to healthcare make truck drivers 
