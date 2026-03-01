@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
+import BookingDialog from "./BookingDialog";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,9 +43,11 @@ const Navbar = () => {
                 {link}
               </a>
             ))}
-            <Button className="bg-secondary text-secondary-foreground hover:bg-teal-dark text-sm font-heading font-bold rounded-full px-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
-              Book Now
-            </Button>
+            <BookingDialog>
+              <Button className="bg-secondary text-secondary-foreground hover:bg-teal-dark text-sm font-heading font-bold rounded-full px-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+                Book Now
+              </Button>
+            </BookingDialog>
           </div>
 
           {/* Mobile toggle */}
@@ -69,9 +72,11 @@ const Navbar = () => {
                 {link}
               </a>
             ))}
-            <Button className="mt-4 w-full bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full">
-              Book Now
-            </Button>
+            <BookingDialog>
+              <Button className="mt-4 w-full bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full">
+                Book Now
+              </Button>
+            </BookingDialog>
           </div>
         )}
       </nav>

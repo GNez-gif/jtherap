@@ -1,10 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import BookingDialog from "./BookingDialog";
 
 const HeroSection = () => {
   return (
-    <section id="home" className="relative min-h-[480px] sm:min-h-[560px] md:min-h-[640px] flex items-center overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-[480px] sm:min-h-[560px] md:min-h-[640px] flex items-center overflow-hidden"
+    >
       <div
         className="absolute inset-0 bg-cover bg-[center_top_20%] sm:bg-[center_top_30%] scale-105"
         style={{ backgroundImage: `url(${heroBg})` }}
@@ -13,7 +17,10 @@ const HeroSection = () => {
 
       {/* Decorative warm circles */}
       <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-secondary/10 blur-3xl animate-float" />
-      <div className="absolute bottom-20 left-20 w-48 h-48 rounded-full bg-warm-amber/10 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
+      <div
+        className="absolute bottom-20 left-20 w-48 h-48 rounded-full bg-warm-amber/10 blur-3xl animate-float"
+        style={{ animationDelay: "3s" }}
+      />
 
       <div className="relative z-10 container py-16 sm:py-20 md:py-24 px-4">
         <div className="max-w-2xl">
@@ -25,8 +32,7 @@ const HeroSection = () => {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-primary-foreground leading-[1.15] text-shadow-hero">
-            Health on the Road,{" "}
-            <span className="text-teal-light">Wellness</span> Behind the Wheel
+            Health on the Road, <span className="text-teal-light">Wellness</span> Behind the Wheel
           </h1>
           <p className="mt-4 sm:mt-5 text-base sm:text-lg md:text-xl text-primary-foreground/90 font-body leading-relaxed text-shadow-hero">
             Diabetes Management & Weight Wellness for Truck Drivers
@@ -38,13 +44,15 @@ const HeroSection = () => {
             Serving the States of Wyoming, Utah, Illinois, New Mexico, Arizona, Texas, Florida…and growing
           </p>
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <Button
-              size="lg"
-              className="bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold px-8 sm:px-10 w-full sm:w-auto rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 text-base"
-            >
-              Book Appointment
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+            <BookingDialog>
+              <Button
+                size="lg"
+                className="bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold px-8 sm:px-10 w-full sm:w-auto rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 text-base"
+              >
+                Book Appointment
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </BookingDialog>
             <Button
               size="lg"
               variant="outline"
