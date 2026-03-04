@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import consultationImg from "@/assets/services-consultation.jpg";
 import logo from "@/assets/logo.png";
 
@@ -41,9 +42,11 @@ const AboutSection = () => {
               Whether you're hauling cross-country or running regional routes, our telehealth-first approach 
               means expert diabetes management and weight wellness support rides with you.
             </p>
-            <Button className="mt-7 bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full px-7 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
-              Learn More About Us
-              <ArrowRight className="w-4 h-4 ml-2" />
+            <Button asChild className="mt-7 bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full px-7 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+              <Link to="/learn-more">
+                Learn More About Us
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
             </Button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import consultationImg from "@/assets/services-consultation.jpg";
 import monitoringImg from "@/assets/services-monitoring.jpg";
 import nutritionImg from "@/assets/services-nutrition.jpg";
@@ -63,9 +64,11 @@ const ServicesSection = () => {
               <div className="md:w-3/5 p-7 sm:p-8 flex flex-col justify-center">
                 <h3 className="text-xl font-heading font-extrabold text-foreground">{service.title}</h3>
                 <p className="mt-3 text-muted-foreground text-sm leading-relaxed font-body">{service.desc}</p>
-                <Button className="mt-5 w-fit bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold text-sm rounded-full px-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
-                  Learn More
-                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                <Button asChild className="mt-5 w-fit bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold text-sm rounded-full px-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
+                  <Link to="/learn-more">
+                    Learn More
+                    <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                  </Link>
                 </Button>
               </div>
             </div>
