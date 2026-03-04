@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight, Sparkles } from "lucide-react";
+import BookingDialog from "./BookingDialog";
 
 const benefits = [
   "Stable blood sugar — even with truck stop meals and irregular schedules",
@@ -43,10 +44,12 @@ const PictureThisSection = () => {
             ))}
           </div>
 
-          <Button className="mt-10 bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5" size="lg">
-            Start Your Journey
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <BookingDialog>
+            <Button className="mt-10 bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5" size="lg">
+              Start Your Journey
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </BookingDialog>
         </div>
       </div>
     </section>

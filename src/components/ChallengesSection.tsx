@@ -1,5 +1,6 @@
 import { Activity, Heart, Eye, Zap, Droplets, Brain, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import BookingDialog from "./BookingDialog";
 
 const challenges = [
   { icon: Activity, title: "Blood Sugar Spikes on the Road", desc: "Fast food and gas station meals making it impossible to keep glucose stable?" },
@@ -50,9 +51,11 @@ const ChallengesSection = () => {
         </p>
 
         <div className="text-center mt-8">
-          <Button className="bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
-            Get Started Today
-          </Button>
+          <BookingDialog>
+            <Button className="bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
+              Get Started Today
+            </Button>
+          </BookingDialog>
         </div>
       </div>
     </section>
