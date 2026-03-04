@@ -1,9 +1,48 @@
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Send, Phone, Mail } from "lucide-react";
+import { Send, Phone, Mail, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.email) {
+      toast({ title: "Email is required", variant: "destructive" });
+      return;
+    }
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("mailchimp-subscribe", {
+        body: form,
+      });
+      if (error) throw error;
+      toast({ title: "Message sent!", description: "We'll be in touch soon." });
+      setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" });
+    } catch (err: any) {
+      console.error(err);
+      toast({ title: "Something went wrong", description: "Please try again later.", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-14 sm:py-20 gradient-section text-primary-foreground relative overflow-hidden">
       <div className="absolute top-10 right-10 w-64 h-64 rounded-full bg-warm-amber/5 blur-3xl" />
@@ -37,35 +76,56 @@ const ContactSection = () => {
           </div>
 
           {/* Form */}
-          <form className="md:col-span-3 space-y-4">
+          <form onSubmit={handleSubmit} className="md:col-span-3 space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input
+                name="firstName"
+                value={form.firstName}
+                onChange={handleChange}
                 placeholder="First Name"
                 className="bg-primary-foreground/10 border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/40 rounded-xl focus:border-secondary"
               />
               <Input
+                name="lastName"
+                value={form.lastName}
+                onChange={handleChange}
                 placeholder="Last Name"
                 className="bg-primary-foreground/10 border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/40 rounded-xl focus:border-secondary"
               />
             </div>
             <Input
+              name="email"
               type="email"
+              value={form.email}
+              onChange={handleChange}
               placeholder="Email Address"
               className="bg-primary-foreground/10 border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/40 rounded-xl focus:border-secondary"
             />
             <Input
+              name="phone"
               type="tel"
+              value={form.phone}
+              onChange={handleChange}
               placeholder="Phone Number"
               className="bg-primary-foreground/10 border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/40 rounded-xl focus:border-secondary"
             />
             <Textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
               placeholder="Tell us about your situation — routes, schedule, health concerns..."
               rows={4}
               className="bg-primary-foreground/10 border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/40 rounded-xl focus:border-secondary"
             />
-            <Button className="w-full bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5" size="lg">
-              Send Message
-              <Send className="w-4 h-4 ml-2" />
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-secondary text-secondary-foreground hover:bg-teal-dark font-heading font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+              size="lg"
+            >
+              {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+              {loading ? "Sending..." : "Send Message"}
+              {!loading && <Send className="w-4 h-4 ml-2" />}
             </Button>
           </form>
         </div>
