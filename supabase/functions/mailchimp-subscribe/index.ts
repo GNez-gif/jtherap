@@ -37,7 +37,7 @@ serve(async (req) => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${MAILCHIMP_API_KEY}`,
+        'Authorization': 'Basic ' + btoa(`anystring:${MAILCHIMP_API_KEY}`),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
