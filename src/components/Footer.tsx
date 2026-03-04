@@ -20,17 +20,17 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-extrabold mb-5 text-lg">Quick Links</h4>
             <ul className="space-y-3 text-sm">
-              {["Home", "About", "Services", "FAQ", "Contact"].map((link) => (
-                <li key={link}>
-                  <a 
-                    href={`#${link.toLowerCase()}`} 
-                    className="text-primary-foreground/65 hover:text-secondary transition-colors duration-200 font-heading font-semibold flex items-center gap-2 group"
-                  >
+              {["Home", "About", "Services", "FAQ", "Contact"].map((link) =>
+              <li key={link}>
+                  <a
+                  href={`#${link.toLowerCase()}`}
+                  className="text-primary-foreground/65 hover:text-secondary transition-colors duration-200 font-heading font-semibold flex items-center gap-2 group">
+                  
                     <span className="w-1.5 h-1.5 rounded-full bg-secondary/50 group-hover:bg-secondary transition-colors" />
                     {link}
                   </a>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
 
@@ -53,7 +53,8 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center">
                   <MapPin className="w-4 h-4 text-secondary" />
                 </div>
-                <span className="font-heading">123 Health Street, Wellness City</span>
+                <span className="font-heading">
+</span>
               </div>
             </div>
           </div>
@@ -65,8 +66,7 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
 };
 
 export default Footer;
