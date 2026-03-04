@@ -47,7 +47,6 @@ serve(async (req) => {
           FNAME: firstName || '',
           LNAME: lastName || '',
           PHONE: phone || '',
-          MMERGE6: message || '',
         },
       }),
     });
