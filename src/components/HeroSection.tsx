@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 import BookingDialog from "./BookingDialog";
 
@@ -54,11 +55,12 @@ const HeroSection = () => {
               </Button>
             </BookingDialog>
             <Button
+              asChild
               size="lg"
               variant="outline"
               className="border-2 border-primary-foreground/40 text-primary-foreground bg-primary-foreground/10 hover:bg-primary-foreground/20 font-heading font-semibold px-8 w-full sm:w-auto rounded-full backdrop-blur-sm transition-all duration-300"
             >
-              Learn More
+              <Link to="/learn-more">Learn More</Link>
             </Button>
           </div>
         </div>
