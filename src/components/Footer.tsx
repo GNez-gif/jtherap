@@ -49,12 +49,6 @@ const Footer = () => {
                 </div>
                 <span className="font-heading">info@junektherapeutics.com</span>
               </div>
-              <div className="flex items-center gap-3 text-primary-foreground/70">
-                <div className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center">
-                  <MapPin className="w-4 h-4 text-secondary" />
-                </div>
-                <span className="font-heading">1130 South Canal Street, #1483, Chicago IL 60607</span>
-              </div>
             </div>
           </div>
         </div>
