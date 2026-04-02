@@ -11,10 +11,28 @@ const Booking = () => {
     script.async = true;
     script.src = "https://intakeq.com/js/widget.min.js?1";
     document.head.appendChild(script);
+    const handleMessage = (e: any) => {
+    if (e.data && e.data.event === "intakeq.appointment_booked") {
+      window.gtag && window.gtag("event", "consult_booked", {
+        event_category: "conversion",
+        event_label: "intakeq_booking"
+      });
+    }
+  };
 
-    return () => {
-      document.head.removeChild(script);
-    };
+  window.addEventListener("message", handleMessage);
+
+  return () => {
+    document.head.removeChild(script);
+    window.removeEventListener("message", handleMessage);
+    window.gtag && window.gtag("event", "booking_page_view", {
+  event_category: "engagement",
+  event_label: "booking_page"
+});
+  };
+}, []);
+
+        };
   }, []);
 
   return (
