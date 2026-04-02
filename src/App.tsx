@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import Booking from "./pages/Booking";
 import LearnMore from "./pages/LearnMore";
 import NotFound from "./pages/NotFound";
+import { captureUtmParams } from "@/lib/utm";
+
+// Capture UTM params on initial page load
+captureUtmParams();
 
 const queryClient = new QueryClient();
 

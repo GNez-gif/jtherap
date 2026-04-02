@@ -28,6 +28,7 @@ const Booking = () => {
         (window as any).gtag && (window as any).gtag("event", "consult_booked", {
           event_category: "conversion",
           event_label: "intakeq_booking",
+          ...utm,
         });
       }
     };
