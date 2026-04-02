@@ -4,35 +4,30 @@ import Footer from "@/components/Footer";
 
 const Booking = () => {
   useEffect(() => {
-    // IntakeQ widget script
     (window as any).intakeq = "65ad99b0c33ecb26253127f5";
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.async = true;
     script.src = "https://intakeq.com/js/widget.min.js?1";
     document.head.appendChild(script);
+
     const handleMessage = (e: any) => {
-    if (e.data && e.data.event === "intakeq.appointment_booked") {
-      window.gtag && window.gtag("event", "consult_booked", {
-        event_category: "conversion",
-        event_label: "intakeq_booking"
-      });
-    }
-  };
+      if (e.data && e.data.event === "intakeq.appointment_booked") {
+        (window as any).gtag && (window as any).gtag("event", "consult_booked", {
+          event_category: "conversion",
+          event_label: "intakeq_booking",
+        });
+      }
+    };
 
-  window.addEventListener("message", handleMessage);
+    window.addEventListener("message", handleMessage);
 
-  return () => {
-    document.head.removeChild(script);
-    window.removeEventListener("message", handleMessage);
-    window.gtag && window.gtag("event", "booking_page_view", {
-  event_category: "engagement",
-  event_label: "booking_page"
-});
-  };
-}, []);
-
-        };
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+      window.removeEventListener("message", handleMessage);
+    };
   }, []);
 
   return (
@@ -48,7 +43,6 @@ const Booking = () => {
               Schedule a consultation at a time that works with your route and schedule.
             </p>
           </div>
-          {/* IntakeQ widget renders here */}
           <div id="intakeq" className="max-w-3xl mx-auto" />
         </div>
       </main>
