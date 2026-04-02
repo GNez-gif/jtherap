@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle } from "lucide-react";
+import { captureUtmParams } from "@/lib/utm";
 
 const Booking = () => {
   const [booked, setBooked] = useState(false);
 
   useEffect(() => {
+    const utm = captureUtmParams();
     (window as any).gtag && (window as any).gtag("event", "booking_page_view", {
       event_category: "engagement",
       event_label: "booking_page",
+      ...utm,
     });
 
     (window as any).intakeq = "65ad99b0c33ecb26253127f5";
