@@ -7,6 +7,11 @@ const Booking = () => {
   const [booked, setBooked] = useState(false);
 
   useEffect(() => {
+    (window as any).gtag && (window as any).gtag("event", "booking_page_view", {
+      event_category: "engagement",
+      event_label: "booking_page",
+    });
+
     (window as any).intakeq = "65ad99b0c33ecb26253127f5";
     const script = document.createElement("script");
     script.type = "text/javascript";
