@@ -492,6 +492,108 @@ Deno.serve(async (req) => {
 
   console.log('Transactional email enqueued', { templateName, effectiveRecipient })
 
+  // 6. Auto-chain a follow-up thank-you email for contact form submissions.
+  // The contact form sends ONE call (admin notification with Turnstile).
+  // We trigger the user-facing thank-you here using the service role —
+  // this avoids Cloudflare's single-use token rejection on a 2nd client call.
+  if (
+    templateName === 'new-signup-notification' &&
+    templateData?.source === 'contact' &&
+    templateData?.email
+  ) {
+    const followUpTemplate = TEMPLATES['contact-thank-you']
+    if (followUpTemplate) {
+      try {
+        const followUpEmail = String(templateData.email)
+        const followUpMessageId = crypto.randomUUID()
+        const followUpData = { firstName: templateData.firstName }
+
+        // Suppression check
+        const { data: followUpSuppressed } = await supabase
+          .from('suppressed_emails')
+          .select('id')
+          .eq('email', followUpEmail.toLowerCase())
+          .maybeSingle()
+
+        if (!followUpSuppressed) {
+          // Get/create unsubscribe token for this recipient
+          const followUpNormalized = followUpEmail.toLowerCase()
+          let followUpToken: string
+          const { data: existing } = await supabase
+            .from('email_unsubscribe_tokens')
+            .select('token, used_at')
+            .eq('email', followUpNormalized)
+            .maybeSingle()
+
+          if (existing && !existing.used_at) {
+            followUpToken = existing.token
+          } else if (!existing) {
+            followUpToken = generateToken()
+            await supabase
+              .from('email_unsubscribe_tokens')
+              .upsert(
+                { token: followUpToken, email: followUpNormalized },
+                { onConflict: 'email', ignoreDuplicates: true }
+              )
+            const { data: stored } = await supabase
+              .from('email_unsubscribe_tokens')
+              .select('token')
+              .eq('email', followUpNormalized)
+              .maybeSingle()
+            followUpToken = stored?.token ?? followUpToken
+          } else {
+            // Token used — skip
+            followUpToken = ''
+          }
+
+          if (followUpToken) {
+            const followUpHtml = await renderAsync(
+              React.createElement(followUpTemplate.component, followUpData)
+            )
+            const followUpText = await renderAsync(
+              React.createElement(followUpTemplate.component, followUpData),
+              { plainText: true }
+            )
+            const followUpSubject =
+              typeof followUpTemplate.subject === 'function'
+                ? followUpTemplate.subject(followUpData)
+                : followUpTemplate.subject
+
+            await supabase.from('email_send_log').insert({
+              message_id: followUpMessageId,
+              template_name: 'contact-thank-you',
+              recipient_email: followUpEmail,
+              status: 'pending',
+            })
+
+            await supabase.rpc('enqueue_email', {
+              queue_name: 'transactional_emails',
+              payload: {
+                message_id: followUpMessageId,
+                to: followUpEmail,
+                from: `${SITE_NAME} <noreply@${FROM_DOMAIN}>`,
+                sender_domain: SENDER_DOMAIN,
+                subject: followUpSubject,
+                html: followUpHtml,
+                text: followUpText,
+                purpose: 'transactional',
+                label: 'contact-thank-you',
+                idempotency_key: `contact-thanks-${idempotencyKey}`,
+                unsubscribe_token: followUpToken,
+                queued_at: new Date().toISOString(),
+              },
+            })
+
+            console.log('Contact thank-you follow-up enqueued', { followUpEmail })
+          }
+        }
+      } catch (followUpErr) {
+        // Never fail the main request because of follow-up issues
+        console.error('Contact thank-you follow-up failed', followUpErr)
+      }
+    }
+  }
+
   return new Response(
     JSON.stringify({ success: true, queued: true }),
     {
