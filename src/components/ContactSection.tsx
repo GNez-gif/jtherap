@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send, Phone, Mail, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
+import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 
 const ContactSection = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -27,6 +31,10 @@ const ContactSection = () => {
       toast({ title: "Email is required", variant: "destructive" });
       return;
     }
+    if (!turnstileToken) {
+      toast({ title: "Please complete the verification", variant: "destructive" });
+      return;
+    }
     setLoading(true);
     try {
       const id = crypto.randomUUID();
@@ -38,6 +46,7 @@ const ContactSection = () => {
           body: {
             templateName: "new-signup-notification",
             idempotencyKey: `contact-notify-${id}`,
+            turnstileToken,
             templateData: {
               source: "contact",
               ...form,
@@ -50,6 +59,7 @@ const ContactSection = () => {
             templateName: "contact-thank-you",
             recipientEmail: form.email,
             idempotencyKey: `contact-thanks-${id}`,
+            turnstileToken,
             templateData: { firstName: form.firstName },
           },
         }),
@@ -60,9 +70,13 @@ const ContactSection = () => {
 
       toast({ title: "Message sent!", description: "Check your inbox — we'll be in touch soon." });
       setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" });
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
     } catch (err: any) {
       console.error(err);
       toast({ title: "Something went wrong", description: "Please try again later.", variant: "destructive" });
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
     } finally {
       setLoading(false);
     }
@@ -142,6 +156,16 @@ const ContactSection = () => {
               rows={4}
               className="bg-primary-foreground/10 border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/40 rounded-xl focus:border-secondary"
             />
+            <div className="flex justify-center">
+              <Turnstile
+                ref={turnstileRef}
+                siteKey={TURNSTILE_SITE_KEY}
+                onSuccess={setTurnstileToken}
+                onExpire={() => setTurnstileToken(null)}
+                onError={() => setTurnstileToken(null)}
+                options={{ theme: "dark", size: "flexible" }}
+              />
+            </div>
             <Button
               type="submit"
               disabled={loading}

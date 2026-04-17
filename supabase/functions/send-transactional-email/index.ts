@@ -90,12 +90,14 @@ Deno.serve(async (req) => {
   let idempotencyKey: string
   let messageId: string
   let templateData: Record<string, any> = {}
+  let turnstileToken: string | undefined
   try {
     const body = await req.json()
     templateName = body.templateName || body.template_name
     recipientEmail = body.recipientEmail || body.recipient_email
     messageId = crypto.randomUUID()
     idempotencyKey = body.idempotencyKey || body.idempotency_key || messageId
+    turnstileToken = body.turnstileToken || body.turnstile_token
     if (body.templateData && typeof body.templateData === 'object') {
       templateData = body.templateData
     }
@@ -167,6 +169,50 @@ Deno.serve(async (req) => {
       return new Response(
         JSON.stringify({ error: 'Forbidden' }),
         { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // (a.5) Cloudflare Turnstile verification — required for all anon callers
+    const turnstileSecret = Deno.env.get('TURNSTILE_SECRET_KEY')
+    if (!turnstileSecret) {
+      console.error('TURNSTILE_SECRET_KEY not configured')
+      return new Response(
+        JSON.stringify({ error: 'Server configuration error' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+    if (!turnstileToken) {
+      return new Response(
+        JSON.stringify({ error: 'Bot verification required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+    const callerIp =
+      req.headers.get('cf-connecting-ip') ||
+      req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+      ''
+    const tsForm = new FormData()
+    tsForm.append('secret', turnstileSecret)
+    tsForm.append('response', turnstileToken)
+    if (callerIp) tsForm.append('remoteip', callerIp)
+    try {
+      const tsRes = await fetch(
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+        { method: 'POST', body: tsForm }
+      )
+      const tsJson = await tsRes.json()
+      if (!tsJson.success) {
+        console.warn('Turnstile verification failed', { codes: tsJson['error-codes'] })
+        return new Response(
+          JSON.stringify({ error: 'Bot verification failed' }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+    } catch (err) {
+      console.error('Turnstile verification error', err)
+      return new Response(
+        JSON.stringify({ error: 'Bot verification unavailable' }),
+        { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
