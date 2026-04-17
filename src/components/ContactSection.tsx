@@ -30,19 +30,35 @@ const ContactSection = () => {
     setLoading(true);
     try {
       const id = crypto.randomUUID();
-      const { error } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "new-signup-notification",
-          idempotencyKey: `contact-notify-${id}`,
-          templateData: {
-            source: "contact",
-            ...form,
-            submittedAt: new Date().toISOString(),
+      const submittedAt = new Date().toISOString();
+
+      // Notify admin + thank submitter in parallel
+      const [notifyRes, thankRes] = await Promise.all([
+        supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "new-signup-notification",
+            idempotencyKey: `contact-notify-${id}`,
+            templateData: {
+              source: "contact",
+              ...form,
+              submittedAt,
+            },
           },
-        },
-      });
-      if (error) throw error;
-      toast({ title: "Message sent!", description: "We'll be in touch soon." });
+        }),
+        supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "contact-thank-you",
+            recipientEmail: form.email,
+            idempotencyKey: `contact-thanks-${id}`,
+            templateData: { firstName: form.firstName },
+          },
+        }),
+      ]);
+
+      if (notifyRes.error) throw notifyRes.error;
+      if (thankRes.error) console.error("Thank-you email failed:", thankRes.error);
+
+      toast({ title: "Message sent!", description: "Check your inbox — we'll be in touch soon." });
       setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" });
     } catch (err: any) {
       console.error(err);
