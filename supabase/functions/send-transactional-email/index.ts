@@ -155,6 +155,73 @@ Deno.serve(async (req) => {
   // Create Supabase client with service role (bypasses RLS)
   const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
+  // ──────────────────────────────────────────────────────────────────────
+  // Anti-abuse: restrict anonymous (public) callers
+  // ──────────────────────────────────────────────────────────────────────
+  const isTrusted = isServiceRoleCaller(req.headers.get('Authorization'), supabaseServiceKey)
+
+  if (!isTrusted) {
+    // (a) Allowlist — only public form templates may be triggered by anon
+    if (!PUBLIC_TEMPLATES.has(templateName)) {
+      console.warn('Anon caller blocked — template not public', { templateName })
+      return new Response(
+        JSON.stringify({ error: 'Forbidden' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // (b) Per-IP rate limit (sliding 1-min and 1-hour windows)
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+      req.headers.get('cf-connecting-ip') ||
+      'unknown'
+    const ipHash = await hashIp(ip)
+    const now = new Date()
+    const minuteBucket = new Date(Math.floor(now.getTime() / 60000) * 60000).toISOString()
+    const hourAgo = new Date(now.getTime() - 60 * 60 * 1000).toISOString()
+
+    const { data: minuteRow } = await supabase
+      .from('email_send_rate_limit')
+      .select('count')
+      .eq('ip_hash', ipHash)
+      .eq('bucket_start', minuteBucket)
+      .maybeSingle()
+
+    if ((minuteRow?.count ?? 0) >= RATE_LIMIT_PER_MINUTE) {
+      console.warn('Rate limit exceeded (per minute)', { ipHash, templateName })
+      return new Response(
+        JSON.stringify({ error: 'Too many requests. Please try again shortly.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    const { data: hourRows } = await supabase
+      .from('email_send_rate_limit')
+      .select('count')
+      .eq('ip_hash', ipHash)
+      .gte('bucket_start', hourAgo)
+
+    const hourTotal = (hourRows ?? []).reduce((s, r: any) => s + (r.count ?? 0), 0)
+    if (hourTotal >= RATE_LIMIT_PER_HOUR) {
+      console.warn('Rate limit exceeded (per hour)', { ipHash, templateName })
+      return new Response(
+        JSON.stringify({ error: 'Too many requests. Please try again later.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    const newCount = (minuteRow?.count ?? 0) + 1
+    await supabase
+      .from('email_send_rate_limit')
+      .upsert(
+        { ip_hash: ipHash, bucket_start: minuteBucket, count: newCount },
+        { onConflict: 'ip_hash,bucket_start' }
+      )
+
+    const dayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString()
+    await supabase.from('email_send_rate_limit').delete().lt('bucket_start', dayAgo)
+  }
+
   // 2. Check suppression list (fail-closed: if we can't verify, don't send)
   const { data: suppressed, error: suppressionError } = await supabase
     .from('suppressed_emails')
