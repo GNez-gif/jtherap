@@ -29,8 +29,17 @@ const ContactSection = () => {
     }
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke("mailchimp-subscribe", {
-        body: form,
+      const id = crypto.randomUUID();
+      const { error } = await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "new-signup-notification",
+          idempotencyKey: `contact-notify-${id}`,
+          templateData: {
+            source: "contact",
+            ...form,
+            submittedAt: new Date().toISOString(),
+          },
+        },
       });
       if (error) throw error;
       toast({ title: "Message sent!", description: "We'll be in touch soon." });

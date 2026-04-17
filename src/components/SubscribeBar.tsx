@@ -18,11 +18,20 @@ const SubscribeBar = () => {
     }
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke("mailchimp-subscribe", {
-        body: { email },
+      const id = crypto.randomUUID();
+      const { error } = await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "new-signup-notification",
+          idempotencyKey: `signup-notify-${id}`,
+          templateData: {
+            source: "subscribe",
+            email,
+            submittedAt: new Date().toISOString(),
+          },
+        },
       });
       if (error) throw error;
-      toast({ title: "You're subscribed! 🎉", description: "Watch your inbox for health tips." });
+      toast({ title: "You're subscribed! 🎉", description: "We'll be in touch with health tips soon." });
       setEmail("");
     } catch (err) {
       console.error(err);
