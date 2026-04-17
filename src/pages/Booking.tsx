@@ -1,8 +1,11 @@
+import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle } from "lucide-react";
 import { captureUtmParams } from "@/lib/utm";
+
+const CAL_LINK = "gloria-nezianya-ptdhwn";
 
 const Booking = () => {
   const [booked, setBooked] = useState(false);
@@ -15,32 +18,26 @@ const Booking = () => {
       ...utm,
     });
 
-    (window as any).intakeq = "65ad99b0c33ecb26253127f5";
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.async = true;
-    script.src = "https://intakeq.com/js/widget.min.js?1";
-    document.head.appendChild(script);
-
-    const handleMessage = (e: any) => {
-      if (e.data && e.data.event === "intakeq.appointment_booked") {
-        setBooked(true);
-        (window as any).gtag && (window as any).gtag("event", "consult_booked", {
-          event_category: "conversion",
-          event_label: "intakeq_booking",
-          ...utm,
-        });
-      }
-    };
-
-    window.addEventListener("message", handleMessage);
-
-    return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script);
-      }
-      window.removeEventListener("message", handleMessage);
-    };
+    (async () => {
+      const cal = await getCalApi();
+      cal("ui", {
+        theme: "light",
+        styles: { branding: { brandColor: "#d97706" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+      cal("on", {
+        action: "bookingSuccessful",
+        callback: () => {
+          setBooked(true);
+          (window as any).gtag && (window as any).gtag("event", "consult_booked", {
+            event_category: "conversion",
+            event_label: "calcom_booking",
+            ...utm,
+          });
+        },
+      });
+    })();
   }, []);
 
   return (
@@ -84,7 +81,13 @@ const Booking = () => {
                   Schedule a consultation at a time that works with your route and schedule.
                 </p>
               </div>
-              <div id="intakeq" className="max-w-3xl mx-auto" />
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-border shadow-sm bg-card">
+                <Cal
+                  calLink={CAL_LINK}
+                  style={{ width: "100%", height: "100%", minHeight: "650px" }}
+                  config={{ layout: "month_view" }}
+                />
+              </div>
             </>
           )}
         </div>
