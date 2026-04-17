@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mail, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
+import { TURNSTILE_SITE_KEY } from "@/lib/turnstile";
 
 const SubscribeBar = () => {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
       toast({ title: "Please enter your email", variant: "destructive" });
+      return;
+    }
+    if (!turnstileToken) {
+      toast({ title: "Please complete the verification", variant: "destructive" });
       return;
     }
     setLoading(true);
@@ -23,6 +31,7 @@ const SubscribeBar = () => {
         body: {
           templateName: "new-signup-notification",
           idempotencyKey: `signup-notify-${id}`,
+          turnstileToken,
           templateData: {
             source: "subscribe",
             email,
@@ -33,9 +42,13 @@ const SubscribeBar = () => {
       if (error) throw error;
       toast({ title: "You're subscribed! 🎉", description: "We'll be in touch with health tips soon." });
       setEmail("");
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
     } catch (err) {
       console.error(err);
       toast({ title: "Something went wrong", description: "Please try again later.", variant: "destructive" });
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
     } finally {
       setLoading(false);
     }
@@ -71,6 +84,16 @@ const SubscribeBar = () => {
             {loading ? "Subscribing..." : "Subscribe"}
           </Button>
         </form>
+        <div className="mt-4 flex justify-center">
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={TURNSTILE_SITE_KEY}
+            onSuccess={setTurnstileToken}
+            onExpire={() => setTurnstileToken(null)}
+            onError={() => setTurnstileToken(null)}
+            options={{ theme: "light", size: "flexible" }}
+          />
+        </div>
       </div>
     </section>
   );
