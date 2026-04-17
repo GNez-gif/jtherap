@@ -40,9 +40,12 @@ const ContactSection = () => {
       const id = crypto.randomUUID();
       const submittedAt = new Date().toISOString();
 
-      // Notify admin + thank submitter in parallel
-      const [notifyRes, thankRes] = await Promise.all([
-        supabase.functions.invoke("send-transactional-email", {
+      // Single call: admin notification with Turnstile.
+      // The edge function automatically chains a thank-you email to the
+      // submitter (server-side, no second Turnstile token required).
+      const { error: notifyError } = await supabase.functions.invoke(
+        "send-transactional-email",
+        {
           body: {
             templateName: "new-signup-notification",
             idempotencyKey: `contact-notify-${id}`,
@@ -53,20 +56,10 @@ const ContactSection = () => {
               submittedAt,
             },
           },
-        }),
-        supabase.functions.invoke("send-transactional-email", {
-          body: {
-            templateName: "contact-thank-you",
-            recipientEmail: form.email,
-            idempotencyKey: `contact-thanks-${id}`,
-            turnstileToken,
-            templateData: { firstName: form.firstName },
-          },
-        }),
-      ]);
+        }
+      );
 
-      if (notifyRes.error) throw notifyRes.error;
-      if (thankRes.error) console.error("Thank-you email failed:", thankRes.error);
+      if (notifyError) throw notifyError;
 
       toast({ title: "Message sent!", description: "Check your inbox — we'll be in touch soon." });
       setForm({ firstName: "", lastName: "", email: "", phone: "", message: "" });
