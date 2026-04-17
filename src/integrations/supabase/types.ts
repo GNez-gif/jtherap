@@ -47,6 +47,24 @@ export type Database = {
         }
         Relationships: []
       }
+      email_send_rate_limit: {
+        Row: {
+          bucket_start: string
+          count: number
+          ip_hash: string
+        }
+        Insert: {
+          bucket_start: string
+          count?: number
+          ip_hash: string
+        }
+        Update: {
+          bucket_start?: string
+          count?: number
+          ip_hash?: string
+        }
+        Relationships: []
+      }
       email_send_state: {
         Row: {
           auth_email_ttl_minutes: number
