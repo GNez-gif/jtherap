@@ -10,7 +10,9 @@ export interface TemplateEntry {
 }
 
 import { template as newSignupNotification } from './new-signup-notification.tsx'
+import { template as contactThankYou } from './contact-thank-you.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'new-signup-notification': newSignupNotification,
+  'contact-thank-you': contactThankYou,
 }
