@@ -26,6 +26,30 @@ const Booking = () => {
         hideEventTypeDetails: false,
         layout: "month_view",
       });
+
+      // 🐛 DEBUG: log every Cal.com event so we can see exactly what fires
+      const CAL_EVENTS = [
+        "bookingSuccessful",
+        "bookingSuccessfulV2",
+        "eventTypeSelected",
+        "linkReady",
+        "linkFailed",
+        "__iframeReady",
+        "__windowLoadComplete",
+        "__dimensionChanged",
+        "__routeChanged",
+        "routeChanged",
+      ];
+      CAL_EVENTS.forEach((action) => {
+        cal("on", {
+          action: action as any,
+          callback: (e: any) => {
+            // eslint-disable-next-line no-console
+            console.log(`[Cal.com event] ${action}`, e?.detail ?? e);
+          },
+        });
+      });
+
       cal("on", {
         action: "bookingSuccessful",
         callback: () => {
