@@ -90,12 +90,14 @@ Deno.serve(async (req) => {
   let idempotencyKey: string
   let messageId: string
   let templateData: Record<string, any> = {}
+  let turnstileToken: string | undefined
   try {
     const body = await req.json()
     templateName = body.templateName || body.template_name
     recipientEmail = body.recipientEmail || body.recipient_email
     messageId = crypto.randomUUID()
     idempotencyKey = body.idempotencyKey || body.idempotency_key || messageId
+    turnstileToken = body.turnstileToken || body.turnstile_token
     if (body.templateData && typeof body.templateData === 'object') {
       templateData = body.templateData
     }
