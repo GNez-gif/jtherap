@@ -21,6 +21,18 @@ const corsHeaders = {
     'authorization, x-client-info, apikey, content-type',
 }
 
+// Templates that may be invoked by anonymous (public) callers via the anon key.
+// Any template not in this set requires the service_role key.
+// Keep this list minimal — only public form-triggered templates belong here.
+const PUBLIC_TEMPLATES = new Set<string>([
+  'new-signup-notification',
+  'contact-thank-you',
+])
+
+// Per-IP rate limits for anon callers
+const RATE_LIMIT_PER_MINUTE = 5
+const RATE_LIMIT_PER_HOUR = 30
+
 // Generate a cryptographically random 32-byte hex token
 function generateToken(): string {
   const bytes = new Uint8Array(32)
@@ -30,9 +42,27 @@ function generateToken(): string {
     .join('')
 }
 
+// Hash an IP address with SHA-256 for storage (avoids logging raw IPs).
+async function hashIp(ip: string): Promise<string> {
+  const data = new TextEncoder().encode(ip)
+  const buf = await crypto.subtle.digest('SHA-256', data)
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+}
+
+// Detect whether the caller is using the service_role key (trusted server)
+// vs the anon key (public/browser). Service role bypasses our restrictions.
+function isServiceRoleCaller(authHeader: string | null, serviceKey: string): boolean {
+  if (!authHeader) return false
+  const token = authHeader.replace(/^Bearer\s+/i, '').trim()
+  return token === serviceKey
+}
+
 // Auth note: this function uses verify_jwt = true in config.toml, so Supabase's
 // gateway validates the caller's JWT (anon or service_role) before the request
-// reaches this code. No in-function auth check is needed.
+// reaches this code. We add additional restrictions for anon callers below.
+
 
 Deno.serve(async (req) => {
   // Handle CORS preflight
