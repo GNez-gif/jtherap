@@ -42,9 +42,18 @@ const NewSignupNotificationEmail = ({
       <Preview>New {sourceLabel} submission{fullName ? ` from ${fullName}` : ''}</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Heading style={h1}>New {sourceLabel} Submission 🚛</Heading>
+          <Heading style={h1}>New {sourceLabel} Submission</Heading>
           <Text style={text}>
-            You just received a new submission on junektherapeutics.com.
+            A new {sourceLabel.toLowerCase()} submission has just come in
+            through junektherapeutics.com. The details are summarized below
+            so you can follow up directly with the driver.
+          </Text>
+          <Text style={text}>
+            Please review the contact information and any message provided,
+            then reach out using the driver's preferred method. Most
+            professional drivers respond best to a quick phone call between
+            loads, so a brief voicemail with a callback window often works
+            well if they do not pick up on the first attempt.
           </Text>
 
           <Section style={card}>
